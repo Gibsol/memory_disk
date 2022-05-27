@@ -3,6 +3,7 @@ import psutil
 import platform
 
 BYTE_TO_MEGABYTE = 0.00000095367432
+
 #memory
 memory = psutil.virtual_memory()
 memory_total = getattr(memory, 'total') * BYTE_TO_MEGABYTE

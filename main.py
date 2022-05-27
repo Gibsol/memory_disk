@@ -1,20 +1,29 @@
+import os
 import psutil
+import platform
 from hurry.filesize import size
 
+BYTE_TO_MEGABTE = 0.00000095367432
 #memory
 memory = psutil.virtual_memory()
-memory_total = size(getattr(memory, 'total'))  
-memory_in_use = size(getattr(memory, 'free'))
-
-print('RAM:\n')
-print('your total memory: ', memory_total)
-print('memory available: ', memory_in_use)
+memory_total = getattr(memory, 'total') * BYTE_TO_MEGABTE
+memory_free = getattr(memory, 'free') * BYTE_TO_MEGABTE
 
 #disk
 disk = psutil.disk_usage('/')
-disk_free = size(getattr(disk, 'total'))
-disk_total = size(getattr(disk, 'free'))
+disk_free = getattr(disk, 'total') * BYTE_TO_MEGABTE
+disk_total = getattr(disk, 'free') * BYTE_TO_MEGABTE
 
-print('Disk usage:\n')
-print('your total disk memory: ', disk_free)
-print('disk memory available: ', disk_total)
+# this block of code is required because Microsoft's cmd doesn't use "clear"
+if platform.system() == 'Windows':
+    os.system('cls')
+else:
+    os.system('clear')
+
+print('RAM:')
+print('your total memory: ', round(memory_total, 2), 'MB')
+print('memory available: ', round(memory_free, 2), 'MB')
+
+print('\nDisk usage:')
+print('your total disk memory: ', round(disk_free, 2), 'MB')
+print('disk memory available: ', round(disk_total, 2), 'MB')

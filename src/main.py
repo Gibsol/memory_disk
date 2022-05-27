@@ -1,7 +1,7 @@
 import os
-from datetime import datetime
 import psutil
 import platform
+from datetime import datetime
 
 BYTE_TO_MEGABYTE = 0.00000095367432
 

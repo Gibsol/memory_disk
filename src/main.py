@@ -44,6 +44,8 @@ if memory_used > memory_limit:
 elif disk_used > disk_limit:
     print('WARNING: You are using more than 20% of your disk space')
 
+input()
+    
 # entering history of the progarm in the "history.txt"
 with open('history.txt', mode='a')as history:
     current_time = str(datetime.now()) 

@@ -1,7 +1,6 @@
 import os
 import psutil
 import platform
-from hurry.filesize import size
 
 BYTE_TO_MEGABTE = 0.00000095367432
 #memory

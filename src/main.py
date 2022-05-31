@@ -1,10 +1,19 @@
 import os
+import sys
 import pyowm 
 import psutil
 import platform
+from pyowm.owm import OWM
 from datetime import datetime
 
 BYTE_TO_MEGABYTE = 0.00000095367432
+
+# weather
+city = 'Tallinn'
+owm = OWM('API KEY')
+manager = owm.weather_manager()
+observation = manager.weather_at_place(city)
+weather = observation.weather
 
 # memory
 memory = psutil.virtual_memory()
@@ -52,6 +61,7 @@ with open('history.txt', mode='a')as history:
     current_time = str(datetime.now()) 
 
     history.write(current_time)
+    history.write(str(weather))
     history.write('\nRAM:\n')
     history.write(str(round(memory_total, 2)))
     history.write('\n')

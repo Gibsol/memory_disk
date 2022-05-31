@@ -1,18 +1,19 @@
 import os
+import pyowm 
 import psutil
 import platform
 from datetime import datetime
 
 BYTE_TO_MEGABYTE = 0.00000095367432
 
-#memory
+# memory
 memory = psutil.virtual_memory()
 memory_total = getattr(memory, 'total') * BYTE_TO_MEGABYTE
 memory_free = getattr(memory, 'free') * BYTE_TO_MEGABYTE
 memory_used = getattr(memory, 'used') 
 memory_limit = (memory_used / 100 * 20) * BYTE_TO_MEGABYTE # 20% of the RAM
 
-#disk
+# disk
 disk = psutil.disk_usage('/')
 disk_free = getattr(disk, 'total') * BYTE_TO_MEGABYTE
 disk_total = getattr(disk, 'free') * BYTE_TO_MEGABYTE

@@ -16,6 +16,14 @@ class Memory:
         self.memory_used = getattr(memory, 'used') 
         self.memory_limit = (memory_used / 100 * 20) * BYTE_TO_MEGABYTE # 20% of the RAM 
 
+    def memory_info(self):
+        print('RAM:')
+        print('Your total memory: ', round(self.memory_total, 2), 'MB')
+        print('Memory available: ', round(self.memory_free, 2), 'MB')
+
+        if self.memory_used > self.memory_limit:
+            print('WARNING: You are using more than 20% of your RAM')
+
 class Disk:
     def __init__(self, disk, disk_free, disk_total, disk_used, disk_limit):
         self.disk = psutil.disk_usage('/')
@@ -23,7 +31,15 @@ class Disk:
         self.disk_total = getattr(disk, 'total') * BYTE_TO_MEGABYTE
         self.disk_used = getattr(disk, 'used')
         self.disk_limit = (disk_used / 100 * 20) * BYTE_TO_MEGABYTE # 20% of the disk
+    
+    def disk_info(self):
+        print('\nDisk usage:')
+        print('Your total disk memory: ', round(self.disk_free, 2), 'MB')
+        print('Disk memory available: ', round(self.disk_total, 2), 'MB')
 
+        if self.disk_used > self.disk_limit:
+            print('WARNING: You are using more than 20% of your disk space')
+        
 # weather
 city = 'Tallinn'
 owm = OWM('API KEY')
@@ -31,30 +47,11 @@ manager = owm.weather_manager()
 observation = manager.weather_at_place(city)
 weather = observation.weather
 
-# information about both
-def memory_info():
-    print('RAM:')
-    print('Your total memory: ', round(memory_total, 2), 'MB')
-    print('Memory available: ', round(memory_free, 2), 'MB')
-
-def disk_info():
-    print('\nDisk usage:')
-    print('Your total disk memory: ', round(disk_free, 2), 'MB')
-    print('Disk memory available: ', round(disk_total, 2), 'MB')
-
 # this block of code is required because Microsoft's cmd uses "cls" instead of "clear"
 if platform.system() == 'Windows':
     os.system('cls')
 else:
     os.system('clear')
-
-memory_info()
-disk_info()
-
-if memory_used > memory_limit:
-    print('WARNING: You are using more than 20% of your RAM')
-elif disk_used > disk_limit:
-    print('WARNING: You are using more than 20% of your disk space')
 
 input()
     

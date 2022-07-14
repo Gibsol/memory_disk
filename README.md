@@ -1,3 +1,3 @@
 # memory_disk
 
-simple program written in Python that shows your disk and memory usage
+Simple Python script written that shows your disk and memory usage.
